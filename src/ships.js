@@ -5,7 +5,7 @@ function createShip(length) {
   };
 
   const isSunk = () => numOfHits === length;
-  return { hit, isSunk };
+  return { hit, isSunk, length };
 }
 
 export default createShip;

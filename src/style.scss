@@ -1,5 +1,13 @@
 $game-tile-dim: 30px;
 
+:export {
+  gameTileDimensions: $game-tile-dim;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .player1-board {
   display: grid;
   grid-template: repeat(10, $game-tile-dim) / repeat(10, $game-tile-dim);
@@ -23,7 +31,7 @@ $game-tile-dim: 30px;
 }
 
 .ships {
-  background-color: #2200cf;
+  background-color: #2300cf87;
   position: absolute;
-  opacity: 50%;
+  border: 2px solid #000;
 }
