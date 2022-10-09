@@ -1,0 +1,29 @@
+$game-tile-dim: 30px;
+
+.player1-board {
+  display: grid;
+  grid-template: repeat(10, $game-tile-dim) / repeat(10, $game-tile-dim);
+  position: relative;
+}
+
+.game-tile {
+  border: 1px solid #000;
+}
+
+.blank-tile {
+  background-color: #e1e1e1;
+}
+
+.missed-attack {
+  background-color: #000;
+}
+
+.hit-ship {
+  background-color: #d70000;
+}
+
+.ships {
+  background-color: #2200cf;
+  position: absolute;
+  opacity: 50%;
+}
