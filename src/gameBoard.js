@@ -31,6 +31,7 @@ function createGameBoard() {
     return true;
   };
 
+  // might want to edit this to simply return if the human player has already attacked that tile
   const receiveAttack = (index) => {
     const isThereAShip = shipData[index];
     if (!isThereAShip) {

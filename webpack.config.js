@@ -12,7 +12,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // template: "./src/index.html",
+      template: "./src/index.html",
       title: "Battleship!",
       favicon: "./src/assets/images/Battleship_sprite.png"
     })
