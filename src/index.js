@@ -3,8 +3,6 @@ import { renderGameBoard, renderShips } from "./DOMMethods";
 import createShip from "./ships";
 import createGameBoard from "./gameBoard";
 
-// console.log(gameTileDimensions);
-
 const container = document.querySelector(".player1-board");
 const testBoard = createGameBoard();
 testBoard.placeShip(createShip, 5, 10, "vertical");

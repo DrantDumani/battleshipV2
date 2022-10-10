@@ -36,30 +36,35 @@ function renderGameBoard(container, gameBoardInfo) {
   }
 }
 
-function renderShips(container, gameBoardInfo, dim) {
+function renderShips(container, gameBoardInfo) {
   const tileList = container.querySelectorAll(".game-tile");
   const shipData = gameBoardInfo.getShipData();
   const shipLocations = Object.keys(shipData);
   let index = 0;
+  let currentShip = shipData[shipLocations[index]];
 
-  while (shipData[shipLocations[index]]) {
-    const length = shipData[shipLocations[index]].ship.length;
-    const alignment = shipData[shipLocations[index]].alignment;
+  while (currentShip) {
+    const length = currentShip.ship.length;
+    const alignment = currentShip.alignment;
     const shipDiv = document.createElement("div");
     shipDiv.classList.add("ships");
-    if (alignment === "vertical") {
-      shipDiv.style.height = `${30 * length}px`;
-      shipDiv.style.width = `${30}px`;
-    }
     const attachedTile = tileList[shipLocations[index]];
     const rect = attachedTile.getBoundingClientRect();
-    const { top, bottom, left, right } = rect;
+    const { top, bottom, left, right, width, height } = rect;
+    if (alignment === "vertical") {
+      shipDiv.style.height = `${height * length}px`;
+      shipDiv.style.width = `${width}px`;
+    } else if (alignment === "horizontal") {
+      shipDiv.style.height = `${height}px`;
+      shipDiv.style.width = `${width * length}px`;
+    }
     shipDiv.style.top = `${top}px`;
     shipDiv.style.left = `${left}px`;
     shipDiv.style.bottom = `${bottom}px`;
     shipDiv.style.right = `${right}px`;
     document.body.append(shipDiv);
     index += length;
+    currentShip = shipData[shipLocations[index]];
   }
 }
 
