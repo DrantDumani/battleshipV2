@@ -39,16 +39,15 @@ function renderGameBoard(container, gameBoardInfo) {
 function renderShips(container, gameBoardInfo) {
   const tileList = container.querySelectorAll(".game-tile");
   const shipData = gameBoardInfo.getShipData();
-  const shipLocations = Object.keys(shipData);
-  let index = 0;
-  let currentShip = shipData[shipLocations[index]];
+  let shipLocations = Object.keys(shipData);
 
-  while (currentShip) {
-    const length = currentShip.ship.length;
-    const alignment = currentShip.alignment;
+  while (shipLocations.length > 0) {
+    const shipObj = shipData[shipLocations[0]];
+    const { indices, alignment } = shipObj;
+    const { length } = shipObj.ship;
     const shipDiv = document.createElement("div");
     shipDiv.classList.add("ships");
-    const attachedTile = tileList[shipLocations[index]];
+    const attachedTile = tileList[shipLocations[0]];
     const rect = attachedTile.getBoundingClientRect();
     const { top, bottom, left, right, width, height } = rect;
     if (alignment === "vertical") {
@@ -63,8 +62,9 @@ function renderShips(container, gameBoardInfo) {
     shipDiv.style.bottom = `${bottom}px`;
     shipDiv.style.right = `${right}px`;
     document.body.append(shipDiv);
-    index += length;
-    currentShip = shipData[shipLocations[index]];
+    shipLocations = shipLocations.filter(
+      (index) => !indices.includes(Number(index))
+    );
   }
 }
 
