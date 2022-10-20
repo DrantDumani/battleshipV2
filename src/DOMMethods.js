@@ -40,6 +40,7 @@ function renderShips(container, gameBoardInfo) {
   const tileList = container.querySelectorAll(".game-tile");
   const shipData = gameBoardInfo.getShipData();
   let shipLocations = Object.keys(shipData);
+  let shipCount = 0;
 
   while (shipLocations.length > 0) {
     const shipObj = shipData[shipLocations[0]];
@@ -47,6 +48,10 @@ function renderShips(container, gameBoardInfo) {
     const { length } = shipObj.ship;
     const shipDiv = document.createElement("div");
     shipDiv.classList.add("ships");
+
+    // make ships draggable
+    shipDiv.draggable = true;
+    shipDiv.id = `ship${shipCount}`;
     const attachedTile = tileList[shipLocations[0]];
     const rect = attachedTile.getBoundingClientRect();
     const { top, bottom, left, right, width, height } = rect;
@@ -62,9 +67,11 @@ function renderShips(container, gameBoardInfo) {
     shipDiv.style.bottom = `${bottom}px`;
     shipDiv.style.right = `${right}px`;
     document.body.append(shipDiv);
+    // attachedTile.append(shipDiv);
     shipLocations = shipLocations.filter(
       (index) => !indices.includes(Number(index))
     );
+    shipCount += 1;
   }
 }
 

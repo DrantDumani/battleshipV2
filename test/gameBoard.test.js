@@ -90,6 +90,18 @@ test("Gameboard can swap ship alignment as long as doing so would not result in 
   expect(didNotSwap2.indices).toEqual([92, 93]);
 });
 
+test("Gameboard can move already placed ships to valid tiles", () => {
+  const testBoard = createGameBoard();
+  const shipIndex = 1;
+  testBoard.placeShip(createShip, 4, shipIndex, "vertical");
+  const shipInfo = testBoard.getShipData();
+  const ship = shipInfo[1];
+  testBoard.moveShip(ship, 10);
+  expect(ship.indices).toEqual([10, 20, 30, 40]);
+  expect(testBoard.moveShip(ship, 90)).toBe(false);
+  expect(ship.indices).toEqual([10, 20, 30, 40]);
+});
+
 test("Gameboard can randomize its five ship placements.", () => {
   const testBoard = createGameBoard();
   const lengths = [5, 4, 3, 3, 2];

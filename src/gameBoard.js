@@ -55,6 +55,22 @@ function createGameBoard() {
     );
   };
 
+  const createShipIndices = (index, length, alignment) => {
+    if (alignment === "horizontal") {
+      return createHorizontalShipIndices(index, length);
+    } else if (alignment === "vertical") {
+      return createVerticalShipIndices(index, length);
+    }
+  };
+
+  const validateShipTile = (testArr, index, length, alignment, ship = null) => {
+    if (alignment === "horizontal") {
+      return checkHorizontal(testArr, index, length, ship);
+    } else if (alignment === "vertical") {
+      return checkVertical(testArr, index, length, ship);
+    }
+  };
+
   const placeShip = (shipFn, length, index, alignment) => {
     const ship = shipFn(length);
     let indices = [];
@@ -73,6 +89,22 @@ function createGameBoard() {
     addShipData(indices, shipInfo);
     ships.push(ship);
     return true;
+  };
+
+  const editShip = (shipObj, newIndices, newAlignment) => {
+    // change ship indices and alignment
+    // delete old properties in shipData
+    // no need to remove the ships themselves since all you're doing is editing them
+    // this function won't need to go through any checks. It's just a secondary function.
+
+    // newAlignment = newAlignment || shipObj.alignment;
+    const oldIndices = shipObj.indices;
+    for (const key of oldIndices) {
+      delete shipData[key];
+    }
+    shipObj.indices = newIndices;
+    shipObj.alignment = newAlignment;
+    addShipData(newIndices, shipObj);
   };
 
   // this one will work by placing a new ship and removing the old one
@@ -96,14 +128,35 @@ function createGameBoard() {
         return false;
       }
     }
-    // remove the old ship. You can't remove the bow since placeShip already took care of that
-    const oldIndices = shipObj.indices;
-    for (const i of oldIndices) {
-      shipData[i] = undefined;
+
+    editShip(shipObj, indices, newAlign);
+    // const oldIndices = shipObj.indices;
+    // for (const i of oldIndices) {
+    //   // shipData[i] = undefined;
+    //   delete shipData[i];
+    // }
+    // shipObj.alignment = newAlign;
+    // shipObj.indices = indices;
+    // addShipData(indices, shipObj);
+    return true;
+  };
+
+  const moveShip = (shipObj, newIndex) => {
+    const align = shipObj.alignment;
+    const length = shipObj.ship.length;
+    let indices = [];
+    if (align === "horizontal") {
+      indices = createHorizontalShipIndices(newIndex, length);
+      if (!checkHorizontal(indices, newIndex, length, shipObj)) {
+        return false;
+      }
+    } else if (align === "vertical") {
+      indices = createVerticalShipIndices(newIndex, length);
+      if (!checkVertical(indices, newIndex, length, shipObj)) {
+        return false;
+      }
     }
-    shipObj.alignment = newAlign;
-    shipObj.indices = indices;
-    addShipData(indices, shipObj);
+    editShip(shipObj, indices, align);
     return true;
   };
 
@@ -157,6 +210,7 @@ function createGameBoard() {
     receiveAttack,
     attackMap,
     swapShipAlign,
+    moveShip,
     allShipsSunk,
     randomize
   };
