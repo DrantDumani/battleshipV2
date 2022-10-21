@@ -71,20 +71,40 @@ function createGameBoard() {
     }
   };
 
-  const placeShip = (shipFn, length, index, alignment) => {
+  // const placeShip = (shipFn, length, index, alignment) => {
+  //   const ship = shipFn(length);
+  //   let indices = [];
+  //   if (alignment === "horizontal") {
+  //     indices = createHorizontalShipIndices(index, length);
+  //     if (!checkHorizontal(indices, index, length, ship)) {
+  //       return false;
+  //     }
+  //   } else if (alignment === "vertical") {
+  //     indices = createVerticalShipIndices(index, length);
+  //     if (!checkVertical(indices, index, length, ship)) {
+  //       return false;
+  //     }
+  //   }
+  //   const shipInfo = { alignment, indices, ship };
+  //   addShipData(indices, shipInfo);
+  //   ships.push(ship);
+  //   return true;
+  // };
+
+  const placeShip = (shipFn, length, indices, alignment) => {
     const ship = shipFn(length);
-    let indices = [];
-    if (alignment === "horizontal") {
-      indices = createHorizontalShipIndices(index, length);
-      if (!checkHorizontal(indices, index, length, ship)) {
-        return false;
-      }
-    } else if (alignment === "vertical") {
-      indices = createVerticalShipIndices(index, length);
-      if (!checkVertical(indices, index, length, ship)) {
-        return false;
-      }
-    }
+    // let indices = [];
+    // if (alignment === "horizontal") {
+    //   indices = createHorizontalShipIndices(index, length);
+    //   if (!checkHorizontal(indices, index, length, ship)) {
+    //     return false;
+    //   }
+    // } else if (alignment === "vertical") {
+    //   indices = createVerticalShipIndices(index, length);
+    //   if (!checkVertical(indices, index, length, ship)) {
+    //     return false;
+    //   }
+    // }
     const shipInfo = { alignment, indices, ship };
     addShipData(indices, shipInfo);
     ships.push(ship);
@@ -200,7 +220,12 @@ function createGameBoard() {
       });
       const randomTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
-      placeShip(shipFn, shipLength, randomTile, chosenAlign);
+      const shipIndices = createShipIndices(
+        randomTile,
+        shipLength,
+        chosenAlign
+      );
+      placeShip(shipFn, shipLength, shipIndices, chosenAlign);
     }
   };
 

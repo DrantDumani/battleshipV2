@@ -6,7 +6,7 @@ import createGameBoard from "./gameBoard";
 const container = document.querySelector(".player1-board");
 const testBoard = createGameBoard();
 // testBoard.randomize([5, 4, 3, 3, 2], createShip);
-testBoard.placeShip(createShip, 3, 10, "vertical");
+// testBoard.placeShip(createShip, 3, 10, "vertical");
 
 renderGameBoard(container, testBoard);
 renderShips(container, testBoard);
