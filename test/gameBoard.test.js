@@ -99,7 +99,7 @@ test("Gameboard can move already placed ships to valid tiles", () => {
       ? [shipBow + 1, shipBow + 2]
       : [shipBow + 1, shipBow + 11];
   const cannotMoveHor = [8, 18, 28, 38, 48, 58, 68, 78, 88, 98];
-  const cannotMoveVer = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
+  const cannotMoveVer = [99];
   testBoard.moveShip(ship, shipBow + 1);
   if (
     (ship.alignment === "horizontal" && cannotMoveHor.includes(shipBow)) ||
