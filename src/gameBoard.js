@@ -46,7 +46,7 @@ function createGameBoard() {
   const checkVertical = (testArr, index, length, ship = null) => {
     return (
       testArr.every((tile) => checkEmptyOrSameShip(ship, tile)) &&
-      index + length * 10 < 99
+      index + (length - 1) * 10 <= 99
     );
   };
 
