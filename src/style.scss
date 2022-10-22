@@ -1,15 +1,15 @@
 $game-tile-dim: 30px;
 
-:export {
-  gameTileDimensions: $game-tile-dim;
-}
-
 * {
   box-sizing: border-box;
 }
 
-.player1-board,
-.player-preview-grid {
+.game-ui-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-board {
   display: grid;
   grid-template: repeat(10, $game-tile-dim) / repeat(10, $game-tile-dim);
   position: relative;

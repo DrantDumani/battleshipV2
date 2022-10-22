@@ -56,7 +56,7 @@ function renderShips(container, gameBoardInfo) {
     const shipDiv = document.createElement("div");
     shipDiv.classList.add("ships");
 
-    shipDiv.draggable = true;
+    // shipDiv.draggable = true;
     shipDiv.dataset.shipIndex = shipLocations[0];
     const attachedTile = tileList[shipLocations[0]];
     const rect = attachedTile.getBoundingClientRect();
@@ -79,4 +79,11 @@ function renderShips(container, gameBoardInfo) {
   }
 }
 
-export { renderGameBoard, renderShips };
+function draggableShips() {
+  const ships = document.querySelectorAll(".ships");
+  ships.forEach((ship) => {
+    ship.draggable = true;
+  });
+}
+
+export { renderGameBoard, renderShips, draggableShips };
