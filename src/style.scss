@@ -8,7 +8,8 @@ $game-tile-dim: 30px;
   box-sizing: border-box;
 }
 
-.player1-board {
+.player1-board,
+.player-preview-grid {
   display: grid;
   grid-template: repeat(10, $game-tile-dim) / repeat(10, $game-tile-dim);
   position: relative;
