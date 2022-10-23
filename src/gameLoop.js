@@ -16,8 +16,11 @@ function initGameLoop(gameBoardFn, shipFn, playerFn) {
 
   const shipLengths = [5, 4, 3, 3, 2];
   const setupBoards = () => {
+    p1Board.resetAttackMap();
+    p2Board.resetAttackMap();
     p1Board.randomize(shipLengths, shipFn);
     p2Board.randomize(shipLengths, shipFn);
+    gameState = "setup";
   };
 
   const takeTurn = (plyr, board, index) => {
@@ -32,7 +35,8 @@ function initGameLoop(gameBoardFn, shipFn, playerFn) {
     takeTurn(player1, p2Board, index);
   };
 
-  const takeCPUTurn = (index) => {
+  const takeCPUTurn = () => {
+    const index = player2.randomAttack();
     takeTurn(player2, p1Board, index);
   };
   return {
