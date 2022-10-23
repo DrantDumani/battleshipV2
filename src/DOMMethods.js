@@ -13,6 +13,8 @@
 function renderGameBoard(container, gameBoardInfo) {
   container.replaceChildren();
   const { attackMap } = gameBoardInfo;
+  const shipInfo = gameBoardInfo.getShipData();
+  let ship = null;
   for (let i = 0; i < 100; i++) {
     const attackStatus = attackMap[i];
     const tile = document.createElement("div");
@@ -29,7 +31,15 @@ function renderGameBoard(container, gameBoardInfo) {
         break;
       case true:
         // I'M HIT!!!
-        tile.classList.add("hit-ship");
+        // check to see if the ship is sunk
+        // if not, paint it red
+        // if yes, paint it yellow
+        ship = shipInfo[i].ship;
+        if (ship.isSunk()) {
+          tile.classList.add("sunken-ship");
+        } else {
+          tile.classList.add("hit-ship");
+        }
         break;
     }
     container.append(tile);

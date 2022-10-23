@@ -3,6 +3,13 @@ function createGameBoard() {
   const attackMap = {};
   const ships = [];
 
+  const resetAttackMap = () => {
+    const attackedTiles = Object.keys(attackMap);
+    for (const key of attackedTiles) {
+      delete attackMap[key];
+    }
+  };
+
   const getShipData = () => {
     return shipData;
   };
@@ -162,6 +169,7 @@ function createGameBoard() {
   };
 
   return {
+    resetAttackMap,
     getShipData,
     receiveAttack,
     attackMap,

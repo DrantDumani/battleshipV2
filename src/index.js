@@ -27,26 +27,17 @@ function renderGameBoards() {
   renderGameBoard(p2BoardDiv, p2Board);
 }
 
-// const container = document.querySelector(".player1-board");
-// const testBoard = createGameBoard();
-// testBoard.randomize([5, 4, 3, 3, 2], createShip);
-
-// renderGameBoard(container, testBoard);
-// renderShips(container, testBoard);
-
-// document.body.addEventListener("click", (e) => {
-//   if (e.target.classList.contains("game-tile")) {
-//     const tile = e.target;
-//     const index = tile.dataset.index;
-//     testBoard.receiveAttack(index);
-//     renderGameBoard(container, testBoard);
-//   }
-// });
-
 function handleTileClick(e) {
   const { index } = e.target.dataset;
-  const { p2Board } = gameModule;
-  p2Board.receiveAttack(index);
+  const enemyAttackMap = gameModule.p2Board.attackMap;
+  const attackedLocations = Object.keys(enemyAttackMap);
+  if (attackedLocations.includes(index)) {
+    return;
+  }
+  gameModule.takeP1Turn(index);
+  if (gameModule.getGameState() !== "game over") {
+    gameModule.takeCPUTurn();
+  }
   renderByGameState();
 }
 
@@ -67,27 +58,41 @@ function addDragEventToShips() {
 function addClickEventToShips() {
   const ships = document.querySelectorAll(".ships");
   ships.forEach((ship) => {
-    ship.addEventListener("click", (e) => {
-      handleShipClick(e, gameModule);
-    });
+    ship.addEventListener("click", handleShipClick);
   });
+}
+
+function displayWinner() {
+  const victoryDiv = document.querySelector(".game-over-msg");
+  const winner = gameModule.getWinner();
+  victoryDiv.textContent = `${winner} has sunken all enemy battleships and won the game!`;
 }
 
 function renderByGameState() {
   const gameState = gameModule.getGameState();
   const setupContainer = document.querySelector(".game-setup-container");
   const gameContainer = document.querySelector(".game-ui-container");
+  const gameOverContainer = document.querySelector(".game-over-container");
   switch (gameState) {
     case "setup":
       setupContainer.classList.remove("hide");
       gameContainer.classList.add("hide");
+      gameOverContainer.classList.add("hide");
       renderPreview();
       break;
     case "playing":
       setupContainer.classList.add("hide");
       gameContainer.classList.remove("hide");
+      gameOverContainer.classList.add("hide");
       renderGameBoards();
       addClickEventToTiles();
+      break;
+    case "game over":
+      setupContainer.classList.add("hide");
+      gameContainer.classList.remove("hide");
+      gameOverContainer.classList.remove("hide");
+      renderGameBoards();
+      displayWinner();
       break;
   }
 }
@@ -108,11 +113,19 @@ function handleRandomizeBtnClick() {
 const randomBtn = document.querySelector(".randomize-btn");
 randomBtn.addEventListener("click", handleRandomizeBtnClick);
 
+function restartGame() {
+  gameModule.setupBoards();
+  renderByGameState();
+}
+
+const restartBtn = document.querySelector(".restart-btn");
+restartBtn.addEventListener("click", restartGame);
+
 window.addEventListener("load", renderByGameState);
 
-function handleShipClick(e, gameObject) {
-  const board = gameObject.p1Board;
-  const shipInfo = gameObject.p1Board.getShipData();
+function handleShipClick(e) {
+  const board = gameModule.p1Board;
+  const shipInfo = gameModule.p1Board.getShipData();
   const index = e.target.dataset.shipIndex;
   const shipObj = shipInfo[index];
   board.swapShipAlign(shipObj);
