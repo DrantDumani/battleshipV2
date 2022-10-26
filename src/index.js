@@ -114,7 +114,7 @@ const randomBtn = document.querySelector(".randomize-btn");
 randomBtn.addEventListener("click", handleRandomizeBtnClick);
 
 function restartGame() {
-  gameModule.setupBoards();
+  gameModule.resetGame();
   renderByGameState();
 }
 
