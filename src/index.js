@@ -152,8 +152,6 @@ function handleDragAndDrop(e) {
     shipDiv.hidden = false;
     if (isNaN(newShipIndex)) {
       return false;
-      // handle user feedback on them being unable to drag the ship off the board.
-      // otherwise, pass it to the function and see if the index is valid
     }
     gameBoard.moveShip(ship, newShipIndex);
     renderPreview();

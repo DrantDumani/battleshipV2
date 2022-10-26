@@ -1,8 +1,3 @@
-// gameboard can place ships somewhere on themselves by receiving an index.
-// gameboards can record an alignment for their ships
-// Ship placement depends on alignment
-// Gameboards return false if you try to place a ship in an illegal spot (overlapping / off the board)
-
 import createShip from "../src/ships";
 import createGameBoard from "../src/gameBoard";
 

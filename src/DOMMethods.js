@@ -1,15 +1,3 @@
-// use information from the gameBoard object to render the gameboard
-// no ship + panel hasn't been hit = blank panel
-// the human / active player can see their ships. So active players only see their ship locations.
-// Ships are rendered by different divs anyway. Trying to go the whole drag and drop route.
-
-// DON'T RENDER SHIPS WITH THE FOLLOWING FUNCTION ALONE. Just use it to render the gameboard. SO...
-// no ship + no attack = blank panel
-// no ship + attack = missed attack
-// ship + attack = HIT
-// sunken ship = SUNK CLASS
-// Every panel will be a div. Forget the buttons
-
 function renderGameBoard(container, gameBoardInfo) {
   container.replaceChildren();
   const { attackMap } = gameBoardInfo;
@@ -22,18 +10,12 @@ function renderGameBoard(container, gameBoardInfo) {
     tile.dataset.index = i;
     switch (attackStatus) {
       case undefined:
-        // area hasn't been attacked
         tile.classList.add("blank-tile");
         break;
       case false:
-        // MISS IN MARIO PARTY
         tile.classList.add("missed-attack");
         break;
       case true:
-        // I'M HIT!!!
-        // check to see if the ship is sunk
-        // if not, paint it red
-        // if yes, paint it yellow
         ship = shipInfo[i].ship;
         if (ship.isSunk()) {
           tile.classList.add("sunken-ship");
@@ -66,7 +48,6 @@ function renderShips(container, gameBoardInfo) {
     const shipDiv = document.createElement("div");
     shipDiv.classList.add("ships");
 
-    // shipDiv.draggable = true;
     shipDiv.dataset.shipIndex = shipLocations[0];
     const attachedTile = tileList[shipLocations[0]];
     const rect = attachedTile.getBoundingClientRect();

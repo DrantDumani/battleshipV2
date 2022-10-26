@@ -36,8 +36,6 @@ function createGameBoard() {
     return arr;
   };
 
-  // helper function that checks to see if a ship can legally be placed at a spot
-  // Rules are a ship can't hang off the board or overlap other ships.
   const checkEmptyOrSameShip = (ship, index) => {
     const shipObj = shipData[index]?.ship;
     return shipData[index] === undefined || ship === shipObj;
