@@ -159,3 +159,15 @@ function handleDragAndDrop(e) {
 
   e.target.addEventListener("dragend", dragEnd, { once: true });
 }
+
+function dragEnter(e) {
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.preventDefault();
+}
+
+const previewGrid = document.querySelector(".player-preview-grid");
+previewGrid.addEventListener("dragenter", dragEnter);
+previewGrid.addEventListener("dragover", dragover);
