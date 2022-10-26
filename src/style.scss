@@ -1,12 +1,56 @@
 $game-tile-dim: 30px;
 
+@import url("https://fonts.googleapis.com/css2?family=Play&display=swap");
+
 * {
   box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  font-family: "Play", sans-serif;
+  font-size: 18px;
+  background-color: #000a40;
+  color: #fff;
+  text-align: center;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button {
+  font-family: "Play", sans-serif;
+  font-size: 24px;
+  color: inherit;
+  background-color: inherit;
+  border-radius: 12px;
+  border: 2px solid #fff;
+}
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  padding: 21px 0;
+}
+
+.game-setup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .game-ui-container {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap-reverse;
 }
 
 .game-board {
@@ -15,32 +59,49 @@ $game-tile-dim: 30px;
   position: relative;
 }
 
+.game-over-container,
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .game-tile {
   border: 1px solid #000;
 }
 
 .blank-tile {
-  background-color: #e1e1e1;
+  background-color: #97b2ff;
 }
 
 .missed-attack {
-  background-color: #000;
+  background-color: #888888;
 }
 
 .hit-ship {
-  background-color: #d70000;
-}
-
-.sunken-ship {
   background-color: #e1e185;
 }
 
+.sunken-ship {
+  background-color: #d70000;
+}
+
 .ships {
-  background-color: #2300cf87;
+  background-color: #ffffff97;
   position: absolute;
   border: 2px solid #000;
+  touch-action: none;
 }
 
 .hide {
   display: none;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #c9fff4;
+}
+
+.footer-link:hover {
+  color: #fff;
 }

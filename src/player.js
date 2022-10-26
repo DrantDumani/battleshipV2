@@ -23,7 +23,6 @@ function createPlayer(type) {
           move = sinkShip(gameBoard);
           break;
       }
-      console.log(move, targetShip);
       return move;
     };
 
@@ -126,9 +125,7 @@ function createPlayer(type) {
       const validAttacks = locations.filter((num) => noRepeats(num));
       const attack =
         validAttacks[Math.floor(Math.random() * validAttacks.length)];
-      // availableMoves.splice(attack, 1);
       availableMoves.splice(availableMoves.indexOf(attack), 1);
-      console.log(availableMoves);
       return attack;
     };
 
