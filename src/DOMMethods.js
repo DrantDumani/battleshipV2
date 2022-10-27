@@ -51,7 +51,7 @@ function renderShips(container, gameBoardInfo) {
     shipDiv.dataset.shipIndex = shipLocations[0];
     const attachedTile = tileList[shipLocations[0]];
     const rect = attachedTile.getBoundingClientRect();
-    const { top, bottom, left, right, width, height } = rect;
+    const { width, height } = rect;
     if (alignment === "vertical") {
       shipDiv.style.height = `${height * length}px`;
       shipDiv.style.width = `${width}px`;
@@ -59,11 +59,7 @@ function renderShips(container, gameBoardInfo) {
       shipDiv.style.height = `${height}px`;
       shipDiv.style.width = `${width * length}px`;
     }
-    shipDiv.style.top = `${top}px`;
-    shipDiv.style.left = `${left}px`;
-    shipDiv.style.bottom = `${bottom}px`;
-    shipDiv.style.right = `${right}px`;
-    document.body.append(shipDiv);
+    attachedTile.append(shipDiv);
     shipLocations = shipLocations.filter(
       (index) => !indices.includes(Number(index))
     );
